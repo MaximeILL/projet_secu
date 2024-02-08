@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Formulaire de Connexion</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form id="auth-form" class="form" action="test.php" method="POST">
+                <h2>Connexion</h2>
+                <label for="username">Nom d'utilisateur:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit" id="login-btn" name="login" value="login">Se connecter</button>
+                <button type="submit" id="signup-btn" name="signin" value="signin">S'inscrire</button>
+                <button onclick='reset()' id="forgot-password-btn">Reset</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+   <script>
+        function reset(){
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+        }
+
+        function logIn(){
+            var user = document.getElementById("username").value;
+            var pswd = document.getElementById("password").value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'test.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            // Traitement de la réponse
+            alert(xhr.responseText);
+            resetForm();
+        }
+    };
+    xhr.send('action=login&user=' + encodeURIComponent(user) + '&password=' + encodeURIComponent(pswd));
+}
+
+
+        function singIn(){
+            user = document.getElementById("username").value;
+            pswd = document.getElementById("password").value;
+        }
+   </script> 
+</body>
+</html>
